@@ -5,7 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
@@ -16,9 +16,10 @@ jobs:
 
       - name: Build APK
         run: |
-          # هنا نقول للسيرفر "نعم" تلقائياً لأي سؤال يخص تحميل الـ Flutter
-          yes | flet build apk KleenusGo.py --product "Kleenus Go"
-          
+          # قبول التراخيص وحل مشكلة المسار
+          yes | flutter doctor --android-licenses || true
+          yes | flet build apk . --product "Kleenus Go"
+
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
